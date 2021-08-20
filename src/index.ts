@@ -54,9 +54,9 @@ export async function main() {
   ceramic.did = did;
   console.log("did", did.id);
   const didNFT =
-    "did:nft:eip155.4_erc721.0xe2a6a2da2408e1c944c045162852ef2056e235ab_0x1";
+    "did:nft:eip155:4_erc721:0xe2a6a2da2408e1c944c045162852ef2056e235ab_1";
   const wrongDidNFT =
-    "did:nft:eip155.4_erc721.0xe2a6a2da2408e1c944c045162852ef2056e235ab_0x33";
+    "did:nft:eip155:4_erc721:0xe2a6a2da2408e1c944c045162852ef2056e235ab_33";
   // const result = await genResolver.resolve(didNFT)
   // console.log(JSON.stringify(result, null, 4))
 
@@ -79,9 +79,9 @@ export async function main() {
   // Works!
   // const tile = await TileDocument.create(ceramic, {foo: "blah"}, {controllers: [didNFT]})
   const tile = await TileDocument.create(ceramic, {foo: "blah"}, {controllers: [didNFT]})
-  // console.log('t', tile.state)
-  // await tile.update({foo: 'bar'})
-  // console.log('t.2', tile.state)
+  console.log('t', tile.state)
+  await tile.update({foo: 'bar'})
+  console.log('t.2',  tile.state)
 
   await ceramic.close();
 }

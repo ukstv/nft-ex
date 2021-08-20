@@ -15,7 +15,7 @@ import Web3 from "web3";
 
 async function main() {
   const ceramic = new CeramicClient("http://localhost:7007");
-  const ceramicSeed = sha256.hash(uint8arrays.fromString(`first-seed2`));
+  const ceramicSeed = sha256.hash(uint8arrays.fromString(`first-seed`));
   const keyDidResolver = KeyDidResolver.getResolver();
   const threeIdResolver = ThreeIdResolver.getResolver(ceramic);
   const resolver = new Resolver({
@@ -39,7 +39,7 @@ async function main() {
   const provider = new HDWalletProvider({
     privateKeys: [
       `0x${uint8arrays.toString(
-        sha256.hash(uint8arrays.fromString("ethereum2")),
+        sha256.hash(uint8arrays.fromString("ethereum")),
         "base16"
       )}`,
     ],
