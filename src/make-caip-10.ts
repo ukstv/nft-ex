@@ -6,7 +6,6 @@ import ThreeIdResolver from "@ceramicnetwork/3id-did-resolver";
 import { Resolver } from "did-resolver";
 import ThreeIdProvider from "3id-did-provider";
 import { DID } from "dids";
-import { ethers } from "ethers";
 import { Caip10Link } from "@ceramicnetwork/stream-caip10-link";
 import { AccountID } from "caip";
 import * as linking from "@ceramicnetwork/blockchain-utils-linking";
@@ -14,7 +13,9 @@ import HDWalletProvider from "@truffle/hdwallet-provider";
 import Web3 from "web3";
 
 async function main() {
+  // const ceramic = new CeramicClient("https://ceramic-dev.3boxlabs.com/");
   const ceramic = new CeramicClient("http://localhost:7007");
+  // const ceramic = new CeramicClient("https://ceramic-clay.3boxlabs.com");
   const ceramicSeed = sha256.hash(uint8arrays.fromString(`first-seed`));
   const keyDidResolver = KeyDidResolver.getResolver();
   const threeIdResolver = ThreeIdResolver.getResolver(ceramic);

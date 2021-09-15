@@ -5,13 +5,16 @@ import KeyDidResolver from "key-did-resolver";
 import ThreeIdResolver from "@ceramicnetwork/3id-did-resolver";
 import { Resolver } from "did-resolver";
 import ThreeIdProvider from "3id-did-provider";
-import { DID } from "./did";
+import { DID } from "dids";
 import { ethers } from "ethers";
-import NftDidResolver from "./nft-did-resolver";
 import { TileDocument } from "@ceramicnetwork/stream-tile";
+import NftDidResolver from 'nft-did-resolver'
+import { CeramicApi } from "@ceramicnetwork/common";
 
 export async function main() {
+  // const ceramic: CeramicApi = new CeramicClient("https://ceramic-dev.3boxlabs.com/");
   const ceramic = new CeramicClient("http://localhost:7007");
+  // const ceramic = new CeramicClient("https://ceramic-clay.3boxlabs.com");
   const ceramicSeed = sha256.hash(uint8arrays.fromString(`first-seed`));
   const keyDidResolver = KeyDidResolver.getResolver();
   const threeIdResolver = ThreeIdResolver.getResolver(ceramic);
@@ -32,13 +35,8 @@ export async function main() {
   const signer = new ethers.Wallet(ethSeed, provider);
 
   const nftResolver = NftDidResolver.getResolver({
-    ceramic: ceramic,
-    subGraphUrls: {
-      "eip155:4": {
-        erc721:
-          "https://api.thegraph.com/subgraphs/name/sunguru98/erc721-rinkeby-subgraph",
-      },
-    },
+    // @ts-ignore
+    ceramic: ceramic
   });
   const genResolver = new Resolver({
     ...threeIdResolver,
@@ -53,6 +51,8 @@ export async function main() {
   // @ts-ignore
   ceramic.did = did;
   console.log("did", did.id);
+  const dr = await did.resolve('did:3:kjzl6cwe1jw148odah4yhqwga5c8ch9yj91vkea7th3tk3ohyks8pnar3gd9806?version-id=0')
+  console.log('resolve', JSON.stringify(dr, null, 4))
   const didNFT =
     "did:nft:eip155:4_erc721:0xe2a6a2da2408e1c944c045162852ef2056e235ab_1";
   const wrongDidNFT =
